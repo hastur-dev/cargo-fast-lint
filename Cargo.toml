@@ -1,0 +1,15 @@
+[package]
+name = "cargo-fast-lint"
+version = "0.1.0"
+edition = "2024"
+description = "A high-performance Rust linter that integrates with Cargo"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/yourusername/cargo-fast-lint"
+keywords = ["lint", "cargo", "rust", "performance"]
+categories = ["development-tools"]
+
+[[bin]]
+name = "cargo-fast-lint"
+path = "src/main.rs"
+
+[dependencies]
