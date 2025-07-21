@@ -2,9 +2,9 @@
 name = "cargo-fast-lint"
 version = "0.1.0"
 edition = "2024"
-description = "A high-performance Rust linter that integrates with Cargo"
+description = "A rust linter that focuses on performance and speed by not building portions of the project to run linting."
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/yourusername/cargo-fast-lint"
+repository = "https://github.com/hastur-dev/cargo-fast-lint"
 keywords = ["lint", "cargo", "rust", "performance"]
 categories = ["development-tools"]
 
