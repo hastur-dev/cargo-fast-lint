@@ -1,6 +1,6 @@
 [package]
 name = "cargo-fl"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 description = "Lightning-fast Rust linter for pre-compilation checks"
 license = "MIT OR Apache-2.0"
