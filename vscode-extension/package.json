@@ -1,0 +1,89 @@
+{
+  "name": "cargo-fl",
+  "displayName": "Cargo Fast Lint",
+  "description": "Lightning-fast Rust linter with real-time feedback",
+  "version": "0.2.0",
+  "publisher": "hastur-dev",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "keywords": [
+    "rust",
+    "lint",
+    "cargo",
+    "fast",
+    "performance"
+  ],
+  "activationEvents": [
+    "onLanguage:rust"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "rust",
+        "extensions": [
+          ".rs"
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Cargo Fast Lint",
+      "properties": {
+        "cargo-fl.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable cargo-fl linting"
+        },
+        "cargo-fl.executablePath": {
+          "type": "string",
+          "default": "cargo-fl-lsp",
+          "description": "Path to the cargo-fl-lsp executable"
+        },
+        "cargo-fl.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the language server"
+        },
+        "cargo-fl.autoFix": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically apply fixes when available"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "cargo-fl.restart",
+        "title": "Restart Cargo FL Language Server",
+        "category": "Cargo FL"
+      },
+      {
+        "command": "cargo-fl.showOutput",
+        "title": "Show Output",
+        "category": "Cargo FL"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.1.0"
+  }
+}
