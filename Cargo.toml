@@ -27,6 +27,12 @@ once_cell = "1.19"
 colored = "2.1"
 indicatif = "0.17"
 ahash = { version = "0.8", features = ["serde"] }  # faster hasher
+tower-lsp = "0.20"
+tokio = { version = "1.0", features = ["full"] }
+
+[[bin]]
+name = "cargo-fl-lsp"
+path = "src/lsp_server.rs"
 
 [dev-dependencies]
 criterion = "0.5"

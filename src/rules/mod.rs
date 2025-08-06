@@ -8,6 +8,10 @@ mod imports;
 mod unsafe_code;
 mod complexity;
 mod docs;
+mod unwrap_usage;
+mod todo_macros;
+mod must_use;
+mod anti_patterns;
 
 pub use syntax::*;
 pub use style::*;
@@ -15,6 +19,10 @@ pub use imports::*;
 pub use unsafe_code::*;
 pub use complexity::*;
 pub use docs::*;
+pub use unwrap_usage::*;
+pub use todo_macros::*;
+pub use must_use::*;
+pub use anti_patterns::*;
 
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct Issue {
@@ -167,6 +175,23 @@ pub fn get_enabled_rules(config: &Config) -> Vec<Box<dyn Rule>> {
     // Documentation rules
     if config.rules.check_missing_docs {
         rules.push(Box::new(MissingDocsRule));
+    }
+    
+    // New quality rules
+    if config.rules.check_unwrap_usage {
+        rules.push(Box::new(UnwrapUsageRule));
+    }
+    
+    if config.rules.check_todo_macros {
+        rules.push(Box::new(TodoMacroRule));
+    }
+    
+    if config.rules.check_must_use {
+        rules.push(Box::new(MustUseRule));
+    }
+    
+    if config.rules.check_anti_patterns {
+        rules.push(Box::new(AntiPatternsRule));
     }
     
     rules

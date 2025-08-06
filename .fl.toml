@@ -1,0 +1,27 @@
+ignore = [
+    "target/**",
+    ".git/**",
+]
+
+[rules]
+check_syntax = true
+check_style = true
+check_naming = true
+check_imports = true
+check_unsafe = true
+check_complexity = true
+check_missing_docs = true
+check_line_length = true
+check_unwrap_usage = true
+check_todo_macros = true
+check_must_use = true
+check_anti_patterns = true
+
+[style]
+max_line_length = 100
+indent_size = 4
+
+[complexity]
+max_cyclomatic = 10
+max_cognitive = 15
+max_nesting = 5

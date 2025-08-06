@@ -19,6 +19,10 @@ pub struct RuleConfig {
     pub check_complexity: bool,
     pub check_missing_docs: bool,
     pub check_line_length: bool,
+    pub check_unwrap_usage: bool,
+    pub check_todo_macros: bool,
+    pub check_must_use: bool,
+    pub check_anti_patterns: bool,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -46,6 +50,10 @@ impl Default for Config {
                 check_complexity: true,
                 check_missing_docs: true,
                 check_line_length: true,
+                check_unwrap_usage: true,
+                check_todo_macros: true,
+                check_must_use: true,
+                check_anti_patterns: true,
             },
             style: StyleConfig {
                 max_line_length: 100,
