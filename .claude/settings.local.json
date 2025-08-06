@@ -3,6 +3,9 @@
     "allow": [
       "Bash(ls:*)",
       "Bash(mkdir:*)"
+      "Bash(cargo check:*)",
+      "Bash(cargo:*)"
+
     ],
     "deny": []
   }

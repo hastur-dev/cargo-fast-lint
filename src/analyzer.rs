@@ -81,6 +81,44 @@ impl Analyzer {
         
         AnalysisResults { file_issues, stats }
     }
+
+    pub fn analyze_file(&self, path: &Path) -> AnalysisResults {
+        let mut file_issues = AHashMap::new();
+        
+        if let Ok(content) = std::fs::read_to_string(path) {
+            if let Ok(syntax_tree) = syn::parse_file(&content) {
+                let mut ctx = RuleContext::new(
+                    path.to_path_buf(),
+                    content.clone(),
+                    syntax_tree,
+                );
+                
+                // Apply each rule
+                for rule in &self.rules {
+                    rule.check(&mut ctx);
+                }
+                
+                if !ctx.issues.is_empty() {
+                    file_issues.insert(path.to_path_buf(), ctx.issues);
+                }
+            }
+        }
+        
+        let mut stats = AnalysisStats::default();
+        stats.total_files = 1;
+        stats.files_with_issues = if file_issues.is_empty() { 0 } else { 1 };
+        
+        for issues in file_issues.values() {
+            stats.total_issues += issues.len();
+            for issue in issues {
+                *stats.issues_by_severity
+                    .entry(issue.severity.to_string())
+                    .or_insert(0) += 1;
+            }
+        }
+        
+        AnalysisResults { file_issues, stats }
+    }
 }
 
 impl AnalysisResults {
