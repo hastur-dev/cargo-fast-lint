@@ -40,7 +40,7 @@ impl<'a> UnwrapVisitor<'a> {
         };
 
         self.ctx.report(Issue {
-            rule: "unwrap_usage",
+            rule: "unwrap_usage".to_string(),
             severity,
             message: format!("Found `{}()` call - {}", method_name, suggestion),
             location: Location {

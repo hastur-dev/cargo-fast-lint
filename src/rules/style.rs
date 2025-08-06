@@ -18,7 +18,7 @@ impl Rule for NamingConventionRule {
                     if !is_snake_case(&name) && !name.starts_with("test_") {
                         let (line, col) = ctx.line_col(func.sig.ident.span());
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Warning,
                             message: format!("Function '{}' should be snake_case", name),
                             location: Location {
@@ -43,7 +43,7 @@ impl Rule for NamingConventionRule {
                     if !is_pascal_case(&name) {
                         let (line, col) = ctx.line_col(s.ident.span());
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Warning,
                             message: format!("Struct '{}' should be PascalCase", name),
                             location: Location {
@@ -89,7 +89,7 @@ impl Rule for LineLengthRule {
         for (i, line) in lines {
             if line.len() > self.max_length {
                 issues_to_report.push(Issue {
-                    rule: self.name(),
+                    rule: self.name().to_string(),
                     severity: Severity::Info,
                     message: format!(
                         "Line exceeds {} characters ({})",

@@ -41,7 +41,7 @@ impl Rule for ImportOrderRule {
         for (_, line, col) in &external_imports {
             if *line < last_std_line {
                 issues_to_report.push(Issue {
-                    rule: self.name(),
+                    rule: self.name().to_string(),
                     severity: Severity::Info,
                     message: "External imports should come after standard library imports".to_string(),
                     location: Location {
@@ -59,7 +59,7 @@ impl Rule for ImportOrderRule {
         for (_, line, col) in &local_imports {
             if *line < last_external_line {
                 issues_to_report.push(Issue {
-                    rule: self.name(),
+                    rule: self.name().to_string(),
                     severity: Severity::Info,
                     message: "Local imports should come after external crate imports".to_string(),
                     location: Location {
@@ -122,7 +122,7 @@ impl Rule for UnusedImportRule {
         for (name, (line, col)) in imports {
             if !used_idents.contains(&name) {
                 issues_to_report.push(Issue {
-                    rule: self.name(),
+                    rule: self.name().to_string(),
                     severity: Severity::Warning,
                     message: format!("Unused import: {}", name),
                     location: Location {

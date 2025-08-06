@@ -9,6 +9,10 @@ mod analyzer;
 mod config;
 mod rules;
 mod walker;
+mod cache;
+mod incremental;
+mod ast_cache;
+mod autofix;
 
 use analyzer::Analyzer;
 use config::{Config, ConfigManager};
@@ -98,7 +102,11 @@ fn run_check(path: PathBuf, fix: bool, format: String, strict: bool) {
     );
     pb.set_message("Analyzing files...");
     
-    let results = analyzer.analyze_path(&path);
+    let results = if fix {
+        analyzer.analyze_path_with_autofix(&path)
+    } else {
+        analyzer.analyze_path(&path)
+    };
     pb.finish_and_clear();
     
     // Display results

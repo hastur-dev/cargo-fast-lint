@@ -30,7 +30,7 @@ impl Rule for UnmatchedDelimitersRule {
                         depth -= 1;
                         if depth < 0 {
                             issues_to_report.push(Issue {
-                                rule: self.name(),
+                                rule: self.name().to_string(),
                                 severity: Severity::Error,
                                 message: "Unmatched closing brace".to_string(),
                                 location: Location {

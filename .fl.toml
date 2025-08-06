@@ -1,9 +1,8 @@
-ignore = [
-    "target/**",
-    ".git/**",
-]
+# Cargo Fast Lint Configuration
+# Generated configuration with all performance optimizations and auto-fix features
 
 [rules]
+# Core linting rules
 check_syntax = true
 check_style = true
 check_naming = true
@@ -12,6 +11,8 @@ check_unsafe = true
 check_complexity = true
 check_missing_docs = true
 check_line_length = true
+
+# Advanced quality rules
 check_unwrap_usage = true
 check_todo_macros = true
 check_must_use = true
@@ -25,3 +26,37 @@ indent_size = 4
 max_cyclomatic = 10
 max_cognitive = 15
 max_nesting = 5
+
+# Performance optimizations
+[performance]
+incremental_analysis = true      # Only analyze changed files
+parallel_analysis = true         # Use all CPU cores
+memory_mapped_io = true         # Use memory-mapped I/O for large files
+large_file_threshold = 1048576  # 1MB threshold for memory mapping
+max_threads = 8                 # Optional: limit thread count
+
+# Caching configuration
+[cache]
+enabled = true
+cache_dir = ".cargo-fl-cache"   # Custom cache directory
+ast_cache_enabled = true        # Cache parsed ASTs
+max_cache_size = 10000         # Maximum cached entries
+cache_ttl_hours = 24           # Cache time-to-live
+
+# Auto-fix configuration
+[autofix]
+enabled = true
+organize_imports = true         # Reorganize and sort imports
+fix_naming_conventions = true   # Fix snake_case/PascalCase violations
+add_missing_docs = false       # Add documentation templates (conservative)
+apply_safe_fixes_only = true   # Only apply guaranteed-safe fixes
+max_fixes_per_file = 100       # Limit fixes to prevent runaway changes
+
+# Files and patterns to ignore
+ignore = [
+    "target/**",
+    ".git/**", 
+    "node_modules/**",
+    "*.generated.rs",
+    "build.rs"
+]

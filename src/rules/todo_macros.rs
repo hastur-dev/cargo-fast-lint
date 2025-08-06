@@ -53,7 +53,7 @@ impl<'a> TodoMacroVisitor<'a> {
         };
 
         self.ctx.report(Issue {
-            rule: "todo_macros",
+            rule: "todo_macros".to_string(),
             severity,
             message: format!("{}!() - {}", macro_name, full_message),
             location: Location {

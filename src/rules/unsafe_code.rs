@@ -29,7 +29,7 @@ impl Rule for UnsafeBlockRule {
                     
                     if !has_safety_doc {
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Error,
                             message: "Unsafe function without safety documentation".to_string(),
                             location: Location {

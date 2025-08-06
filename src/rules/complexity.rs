@@ -26,7 +26,7 @@ impl Rule for CyclomaticComplexityRule {
                 if complexity > self.max_complexity {
                     let (line, col) = ctx.line_col(func.sig.ident.span());
                     issues_to_report.push(Issue {
-                        rule: self.name(),
+                        rule: self.name().to_string(),
                         severity: Severity::Warning,
                         message: format!(
                             "Function '{}' has cyclomatic complexity of {} (max: {})",
@@ -78,7 +78,7 @@ impl Rule for CognitiveComplexityRule {
                 if complexity > self.max_complexity {
                     let (line, col) = ctx.line_col(func.sig.ident.span());
                     issues_to_report.push(Issue {
-                        rule: self.name(),
+                        rule: self.name().to_string(),
                         severity: Severity::Warning,
                         message: format!(
                             "Function '{}' has cognitive complexity of {} (max: {})",
