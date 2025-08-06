@@ -1,49 +1,53 @@
 {
   "name": "cargo-fl",
   "displayName": "Cargo Fast Lint",
-  "description": "Lightning-fast Rust linter with real-time feedback",
+  "description": "Lightning-fast Rust linter for VS Code with live LSP integration",
   "version": "0.2.0",
-  "publisher": "hastur-dev",
   "engines": {
     "vscode": "^1.74.0"
   },
   "categories": [
-    "Linters"
+    "Linters",
+    "Programming Languages"
   ],
   "keywords": [
     "rust",
-    "lint",
+    "linter",
     "cargo",
+    "performance",
     "fast",
-    "performance"
+    "lsp"
   ],
-  "activationEvents": [
-    "onLanguage:rust"
-  ],
-  "main": "./out/extension.js",
+  "main": "./client.js",
   "contributes": {
     "languages": [
       {
         "id": "rust",
-        "extensions": [
-          ".rs"
-        ]
+        "extensions": [".rs"]
+      }
+    ],
+    "commands": [
+      {
+        "command": "cargo-fl.restart",
+        "title": "Restart Language Server",
+        "category": "Cargo FL"
       }
     ],
     "configuration": {
-      "title": "Cargo Fast Lint",
+      "type": "object",
+      "title": "Cargo FL",
       "properties": {
-        "cargo-fl.enable": {
+        "cargoFl.maxNumberOfProblems": {
+          "type": "number",
+          "default": 1000,
+          "description": "Maximum number of problems to report"
+        },
+        "cargoFl.enableLinting": {
           "type": "boolean",
           "default": true,
-          "description": "Enable cargo-fl linting"
+          "description": "Enable live linting"
         },
-        "cargo-fl.executablePath": {
-          "type": "string",
-          "default": "cargo-fl-lsp",
-          "description": "Path to the cargo-fl-lsp executable"
-        },
-        "cargo-fl.trace.server": {
+        "cargoFl.trace.server": {
           "type": "string",
           "enum": [
             "off",
@@ -51,39 +55,25 @@
             "verbose"
           ],
           "default": "off",
-          "description": "Traces the communication between VS Code and the language server"
-        },
-        "cargo-fl.autoFix": {
-          "type": "boolean",
-          "default": false,
-          "description": "Automatically apply fixes when available"
+          "description": "Traces the communication between VS Code and the language server."
         }
       }
-    },
-    "commands": [
-      {
-        "command": "cargo-fl.restart",
-        "title": "Restart Cargo FL Language Server",
-        "category": "Cargo FL"
-      },
-      {
-        "command": "cargo-fl.showOutput",
-        "title": "Show Output",
-        "category": "Cargo FL"
-      }
-    ]
+    }
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+  "activationEvents": [
+    "onLanguage:rust"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hastur-dev/cargo-fl"
   },
-  "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/vscode": "^1.74.0",
-    "typescript": "^4.9.0"
-  },
+  "license": "MIT OR Apache-2.0",
+  "publisher": "hastur-dev",
   "dependencies": {
     "vscode-languageclient": "^8.1.0"
+  },
+  "devDependencies": {
+    "vscode-languageserver": "^8.1.0",
+    "vscode-languageserver-textdocument": "^1.0.8"
   }
 }
