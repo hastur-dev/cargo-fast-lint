@@ -1,11 +1,14 @@
 use serde::{Deserialize, Serialize};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Config {
     pub rules: RuleConfig,
     pub style: StyleConfig,
     pub complexity: ComplexityConfig,
+    pub cache: CacheConfig,
+    pub autofix: AutoFixConfig,
+    pub performance: PerformanceConfig,
     pub ignore: Vec<String>,
 }
 
@@ -38,6 +41,34 @@ pub struct ComplexityConfig {
     pub max_nesting: usize,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct CacheConfig {
+    pub enabled: bool,
+    pub cache_dir: Option<PathBuf>,
+    pub ast_cache_enabled: bool,
+    pub max_cache_size: usize,
+    pub cache_ttl_hours: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct AutoFixConfig {
+    pub enabled: bool,
+    pub organize_imports: bool,
+    pub fix_naming_conventions: bool,
+    pub add_missing_docs: bool,
+    pub apply_safe_fixes_only: bool,
+    pub max_fixes_per_file: usize,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct PerformanceConfig {
+    pub incremental_analysis: bool,
+    pub parallel_analysis: bool,
+    pub memory_mapped_io: bool,
+    pub large_file_threshold: usize,
+    pub max_threads: Option<usize>,
+}
+
 impl Default for Config {
     fn default() -> Self {
         Self {
@@ -64,9 +95,32 @@ impl Default for Config {
                 max_cognitive: 15,
                 max_nesting: 5,
             },
+            cache: CacheConfig {
+                enabled: true,
+                cache_dir: None, // Will use system temp dir if None
+                ast_cache_enabled: true,
+                max_cache_size: 10000,
+                cache_ttl_hours: 24,
+            },
+            autofix: AutoFixConfig {
+                enabled: true,
+                organize_imports: true,
+                fix_naming_conventions: true,
+                add_missing_docs: false, // Conservative default
+                apply_safe_fixes_only: true,
+                max_fixes_per_file: 100,
+            },
+            performance: PerformanceConfig {
+                incremental_analysis: true,
+                parallel_analysis: true,
+                memory_mapped_io: true,
+                large_file_threshold: 1024 * 1024, // 1MB
+                max_threads: None, // Use all available cores
+            },
             ignore: vec![
                 "target/**".to_string(),
                 ".git/**".to_string(),
+                "node_modules/**".to_string(),
             ],
         }
     }

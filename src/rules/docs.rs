@@ -17,7 +17,7 @@ impl Rule for MissingDocsRule {
                     if !has_doc_comment(&f.attrs) {
                         let (line, col) = ctx.line_col(f.sig.ident.span());
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Warning,
                             message: format!("Missing documentation for public function '{}'", f.sig.ident),
                             location: Location {
@@ -34,7 +34,7 @@ impl Rule for MissingDocsRule {
                     if !has_doc_comment(&s.attrs) {
                         let (line, col) = ctx.line_col(s.ident.span());
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Warning,
                             message: format!("Missing documentation for public struct '{}'", s.ident),
                             location: Location {
@@ -51,7 +51,7 @@ impl Rule for MissingDocsRule {
                     if !has_doc_comment(&e.attrs) {
                         let (line, col) = ctx.line_col(e.ident.span());
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Warning,
                             message: format!("Missing documentation for public enum '{}'", e.ident),
                             location: Location {
@@ -68,7 +68,7 @@ impl Rule for MissingDocsRule {
                     if !has_doc_comment(&t.attrs) {
                         let (line, col) = ctx.line_col(t.ident.span());
                         issues_to_report.push(Issue {
-                            rule: self.name(),
+                            rule: self.name().to_string(),
                             severity: Severity::Warning,
                             message: format!("Missing documentation for public trait '{}'", t.ident),
                             location: Location {

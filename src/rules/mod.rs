@@ -24,16 +24,16 @@ pub use todo_macros::*;
 pub use must_use::*;
 pub use anti_patterns::*;
 
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Issue {
-    pub rule: &'static str,
+    pub rule: String, // Changed from &'static str to String to fix lifetime issue
     pub severity: Severity,
     pub message: String,
     pub location: Location,
     pub fix: Option<Fix>,
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Location {
     pub line: usize,
     pub column: usize,
@@ -41,20 +41,20 @@ pub struct Location {
     pub end_column: Option<usize>,
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Fix {
     pub description: String,
     pub replacements: Vec<Replacement>,
 }
 
-#[derive(Debug, Clone, serde::Serialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct Replacement {
     pub start: usize,
     pub end: usize,
     pub text: String,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum Severity {
     Error,
     Warning,
@@ -85,6 +85,16 @@ impl RuleContext {
     
     pub fn report(&mut self, issue: Issue) {
         self.issues.push(issue);
+    }
+    
+    pub fn report_issue(&mut self, rule: &str, severity: Severity, message: String, location: Location, fix: Option<Fix>) {
+        self.issues.push(Issue {
+            rule: rule.to_string(),
+            severity,
+            message,
+            location,
+            fix,
+        });
     }
     
     pub fn line_col(&self, _span: proc_macro2::Span) -> (usize, usize) {

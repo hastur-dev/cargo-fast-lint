@@ -60,7 +60,7 @@ impl<'a> MustUseVisitor<'a> {
 
     fn check_unused_result(&mut self, _expr: &Expr, line: usize, col: usize, context: &str) {
         self.ctx.report(Issue {
-            rule: "must_use_violations",
+            rule: "must_use_violations".to_string(),
             severity: Severity::Warning,
             message: format!("Unused result from {} - consider using `let _ = ...` if intentional", context),
             location: Location {
@@ -121,7 +121,7 @@ impl<'a> Visit<'a> for MustUseVisitor<'a> {
                         // These are commonly ignored, but should be checked
                         let (line, col) = self.ctx.line_col(last_segment.ident.span());
                         self.ctx.report(Issue {
-                            rule: "must_use_violations",
+                            rule: "must_use_violations".to_string(),
                             severity: Severity::Info,
                             message: format!("Consider checking the result of `{}()` for error handling", func_name),
                             location: Location {
@@ -152,7 +152,7 @@ impl<'a> Visit<'a> for MustUseVisitor<'a> {
             match method_name.as_str() {
                 "map" | "filter" | "enumerate" | "zip" | "chain" | "take" | "skip" | "rev" => {
                     self.ctx.report(Issue {
-                        rule: "must_use_violations",
+                        rule: "must_use_violations".to_string(),
                         severity: Severity::Warning,
                         message: format!("Iterator method `{}()` returns a lazy iterator that must be consumed (e.g., with `.collect()`, `.for_each()`, etc.)", method_name),
                         location: Location {
@@ -184,7 +184,7 @@ impl<'a> Visit<'a> for MustUseVisitor<'a> {
                 // These convert Result/Option and should often be used
                 let (line, col) = self.ctx.line_col(method_call.method.span());
                 self.ctx.report(Issue {
-                    rule: "must_use_violations",
+                    rule: "must_use_violations".to_string(),
                     severity: Severity::Info,
                     message: format!("Result of `.{}()` should typically be used or explicitly ignored", method_name),
                     location: Location {

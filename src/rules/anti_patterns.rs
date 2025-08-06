@@ -28,7 +28,7 @@ impl<'a> AntiPatternsVisitor<'a> {
 
     fn report_antipattern(&mut self, line: usize, col: usize, message: &str, fix: Option<Fix>) {
         self.ctx.report(Issue {
-            rule: "anti_patterns",
+            rule: "anti_patterns".to_string(),
             severity: Severity::Warning,
             message: message.to_string(),
             location: Location {
@@ -116,7 +116,7 @@ impl<'a> AntiPatternsVisitor<'a> {
             "collect" => {
                 // Check for collect followed by indexing
                 self.ctx.report(Issue {
-                    rule: "anti_patterns",
+                    rule: "anti_patterns".to_string(),
                     severity: Severity::Info,
                     message: "Consider if iteration can be done without collecting - lazy evaluation is often more efficient".to_string(),
                     location: Location {
@@ -158,7 +158,7 @@ impl<'a> AntiPatternsVisitor<'a> {
             "is_some" | "is_none" | "is_ok" | "is_err" => {
                 // These are often followed by unwrap/expect - common antipattern
                 self.ctx.report(Issue {
-                    rule: "anti_patterns",
+                    rule: "anti_patterns".to_string(),
                     severity: Severity::Info,
                     message: format!("Consider using pattern matching or combinators instead of `.{}()` checks", method_name),
                     location: Location {
@@ -230,7 +230,7 @@ impl<'a> Visit<'a> for AntiPatternsVisitor<'a> {
                 // Check if this is a boolean conversion pattern
                 let (line, col) = self.ctx.line_col(let_expr.let_token.span());
                 self.ctx.report(Issue {
-                    rule: "anti_patterns",
+                    rule: "anti_patterns".to_string(),
                     severity: Severity::Info,
                     message: "Consider using `.is_some()`, `.is_none()`, `.is_ok()`, or `.is_err()` instead of if-let for boolean conversion".to_string(),
                     location: Location {
@@ -270,7 +270,7 @@ impl<'a> Visit<'a> for AntiPatternsVisitor<'a> {
 
             if has_option_result_pattern {
                 self.ctx.report(Issue {
-                    rule: "anti_patterns",
+                    rule: "anti_patterns".to_string(),
                     severity: Severity::Info,
                     message: "Consider using combinators like `.map()`, `.and_then()`, `.unwrap_or()`, etc. instead of match for simple Option/Result handling".to_string(),
                     location: Location {
@@ -294,7 +294,7 @@ impl<'a> Visit<'a> for AntiPatternsVisitor<'a> {
             if let (Some(start), Some(end)) = (&range.start, &range.end) {
                 let (line, col) = self.ctx.line_col(for_loop.for_token.span());
                 self.ctx.report(Issue {
-                    rule: "anti_patterns",
+                    rule: "anti_patterns".to_string(),
                     severity: Severity::Info,
                     message: "Consider using iterator methods like `.enumerate()`, `.zip()`, or range methods instead of indexed for loops".to_string(),
                     location: Location {

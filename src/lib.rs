@@ -10,10 +10,17 @@ pub mod analyzer;
 pub mod config;
 pub mod rules;
 pub mod walker;
+pub mod cache;
+pub mod incremental;
+pub mod ast_cache;
+pub mod autofix;
 
 pub use analyzer::{Analyzer, AnalysisResults};
 pub use config::{Config, ConfigManager};
 pub use rules::{Issue, Severity, Rule};
+pub use incremental::{IncrementalAnalyzer, IncrementalResults};
+pub use cache::{AnalysisCache, CacheStats};
+pub use autofix::{AutoFixEngine, ImportOrganizer, NamingConventionFixer, DocTemplateGenerator};
 
 /// Version information
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
