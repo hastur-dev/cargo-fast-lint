@@ -1,0 +1,79 @@
+{
+  "name": "cargo-fl",
+  "displayName": "Cargo Fast Lint",
+  "description": "Lightning-fast Rust linter for VS Code with live LSP integration",
+  "version": "0.2.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "rust",
+    "linter",
+    "cargo",
+    "performance",
+    "fast",
+    "lsp"
+  ],
+  "main": "./client.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "rust",
+        "extensions": [".rs"]
+      }
+    ],
+    "commands": [
+      {
+        "command": "cargo-fl.restart",
+        "title": "Restart Language Server",
+        "category": "Cargo FL"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Cargo FL",
+      "properties": {
+        "cargoFl.maxNumberOfProblems": {
+          "type": "number",
+          "default": 1000,
+          "description": "Maximum number of problems to report"
+        },
+        "cargoFl.enableLinting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable live linting"
+        },
+        "cargoFl.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the language server."
+        }
+      }
+    }
+  },
+  "activationEvents": [
+    "onLanguage:rust"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hastur-dev/cargo-fl"
+  },
+  "license": "MIT OR Apache-2.0",
+  "publisher": "hastur-dev",
+  "dependencies": {
+    "vscode-languageclient": "^8.1.0"
+  },
+  "devDependencies": {
+    "vscode-languageserver": "^8.1.0",
+    "vscode-languageserver-textdocument": "^1.0.8"
+  }
+}
