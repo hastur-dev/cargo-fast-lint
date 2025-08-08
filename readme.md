@@ -26,27 +26,27 @@ cargo install cargo-fl
 
 ```bash
 # Lint current directory
-cargo fl check
+cargo-fl check
 
 # Lint specific path
-cargo fl check src/
+cargo-fl check src/
 
 # Auto-fix issues
-cargo fl check --fix
+cargo-fl check --fix
 
 # Different output formats
-cargo fl check --format json
-cargo fl check --format github  # For CI
+cargo-fl check --format json
+cargo-fl check --format github  # For CI
 
 # Strict mode (exit 1 on issues)
-cargo fl check --strict
+cargo-fl check --strict
 ```
 
 ### Configuration
 
 Generate a default config:
 ```bash
-cargo fl config --init
+cargo-fl config --init
 ```
 
 This creates `.fl.toml`:
